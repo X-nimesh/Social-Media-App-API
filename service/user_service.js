@@ -1,8 +1,10 @@
 const userModel = require('../models/user-model');
+const { findAll, createUser } = require('../repository/user/user_repository');
 
 exports.list = async (req, res) => {
     try {
-        const userData = await userModel.findAll();
+        const userData = await findAll();
+        // console.log(userData.then(data => console.log(data)));
         return res.json({ users: userData })
     } catch (error) {
         throw error
@@ -11,7 +13,8 @@ exports.list = async (req, res) => {
 exports.post = async (req, res, next) => {
     try {
         const { name, email, about } = req.body;
-        await userModel.create({ name, email, about })
+        // await userModel.create({ name, email, about })
+        await createUser(name, email, about);
         return res.status(400).json({ message: 'data inserted successfully' })
     } catch (error) {
         throw error

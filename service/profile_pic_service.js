@@ -1,4 +1,6 @@
 const profilePicModel = require('../models/profilePic-model');
+const { Methods } = require('../utils/method');
+const { response } = require('../utils/response-message');
 
 exports.list = async (req, res) => {
     try {
@@ -23,6 +25,7 @@ exports.view = async (req, res) => {
     try {
         const { id } = req.params;
         const resData = await profilePicModel.findOne({ where: { id } });
+        response(res, 200, resdata, 'Profile Picture getby id', Methods.GET);
         return res.status(200).json({ message: 'Profile Picture getby id', data: resData })
     } catch (error) {
         throw error
